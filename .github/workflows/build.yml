@@ -29,6 +29,13 @@ jobs:
           & ahk2exe\Ahk2Exe.exe /in double-tap.ahk /out double-tap.exe /base ahk\AutoHotkey64.exe /silent verbose | Out-Host
           if (-not (Test-Path double-tap.exe)) { exit 1 }
 
+      - name: Test
+        shell: pwsh
+        run: |
+          $p = Start-Process ahk\AutoHotkey64.exe -ArgumentList test.ahk -Wait -PassThru
+          Get-Content test-result.txt
+          exit $p.ExitCode
+
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: double-tap
