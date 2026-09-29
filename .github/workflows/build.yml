@@ -26,6 +26,10 @@ jobs:
       - name: Compile
         shell: pwsh
         run: |
+          if ("${{ github.ref }}".StartsWith("refs/tags/v")) {
+            $v = "${{ github.ref_name }}".Substring(1)
+            (Get-Content double-tap.ahk) -replace "SetVersion 0.0.0", "SetVersion $v" | Set-Content double-tap.ahk
+          }
           & ahk2exe\Ahk2Exe.exe /in double-tap.ahk /out double-tap.exe /base ahk\AutoHotkey64.exe /silent verbose | Out-Host
           if (-not (Test-Path double-tap.exe)) { exit 1 }
 
