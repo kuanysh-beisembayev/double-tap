@@ -4,6 +4,7 @@
 ;@Ahk2Exe-SetName double-tap
 ;@Ahk2Exe-SetDescription double-tap
 ;@Ahk2Exe-SetVersion 0.0.0
+;@Ahk2Exe-SetMainIcon armlet.ico
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
