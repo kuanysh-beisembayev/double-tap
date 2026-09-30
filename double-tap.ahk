@@ -1,5 +1,5 @@
 ; Armlet double toggle. AutoHotkey v2.
-; X     = Armlet slot normal hotkey in Dota 2, Y = quickcast hotkey of the same slot.
+; X     = Armlet slot normal hotkey in Dota 2, N = quickcast hotkey of the same slot.
 ; Alt+X = presses both at once, toggling twice.
 ;@Ahk2Exe-SetName double-tap
 ;@Ahk2Exe-SetDescription double-tap
@@ -9,7 +9,7 @@
 #SingleInstance Force
 
 !x:: {
-    Send "{x down}{y down}"
+    Send "{x down}{n down}"
     Sleep 30
-    Send "{x up}{y up}"
+    Send "{x up}{n up}"
 }
