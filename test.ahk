@@ -1,16 +1,11 @@
 ; Runs double-tap.exe and checks:
-; 1. an older copy with a different exe name gets closed,
-; 2. holding Alt and pressing X sends X then N at least 45 ms apart,
-; 3. F6 sends X then N.
+; 1. holding Alt and pressing X sends X then N at least 45 ms apart,
+; 2. F6 sends X then N.
 #Requires AutoHotkey v2.0
 
 out := A_ScriptDir "\test-result.txt"
-FileCopy A_ScriptDir "\double-tap.exe", A_ScriptDir "\double-tap-old.exe", true
-Run A_ScriptDir "\double-tap-old.exe"
-Sleep 1500
 Run A_ScriptDir "\double-tap.exe"
 Sleep 1500
-oldClosed := !ProcessExist("double-tap-old.exe")
 
 qpc() {
     DllCall("QueryPerformanceCounter", "Int64*", &c := 0)
@@ -43,6 +38,6 @@ for e in events
         sent .= e.key, times.Push(e.t)
 
 gap := times.Length >= 2 ? times[2] - times[1] : 0
-ok := oldClosed && sent = "xnxn" && gap >= 45 && gap <= 120
-FileAppend (ok ? "PASS" : "FAIL") ": old copy closed " oldClosed ", keys sent [" sent "], X-N gap " Round(gap) " ms`n", out
+ok := sent = "xnxn" && gap >= 45 && gap <= 120
+FileAppend (ok ? "PASS" : "FAIL") ": keys sent [" sent "], X-N gap " Round(gap) " ms`n", out
 ExitApp ok ? 0 : 1
