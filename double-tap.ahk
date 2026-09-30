@@ -8,7 +8,8 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-; Windows sleeps in ~16 ms steps by default. Ask for 1 ms resolution so short Sleeps are real.
+; Windows sleeps in ~16 ms steps by default. Ask for 1 ms resolution so short sleeps are real.
+; AutoHotkey's own Sleep still rounds up, so tap() calls the system Sleep directly.
 DllCall("winmm\timeBeginPeriod", "UInt", 1)
 
 ; Track the physical Alt key ourselves. Our own Alt up/down sends below are
