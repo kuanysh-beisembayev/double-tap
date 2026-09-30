@@ -8,10 +8,12 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-; Release exes are named by version, so #SingleInstance cannot see older copies. Close them.
-for p in ComObjGet("winmgmts:").ExecQuery("SELECT ProcessId FROM Win32_Process WHERE Name LIKE 'double-tap%'")
-    if p.ProcessId != ProcessExist()
-        ProcessClose p.ProcessId
+; Release exes are named by version, so #SingleInstance cannot see older copies. Ask them to close.
+DetectHiddenWindows true
+SetTitleMatchMode 2
+for hwnd in WinGetList("double-tap ahk_class AutoHotkey")
+    if hwnd != A_ScriptHwnd
+        WinClose hwnd
 
 ; Alt is released first so Dota sees plain X and N, not Alt+X and Alt+N.
 !x:: {

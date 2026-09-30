@@ -52,4 +52,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           Copy-Item double-tap.exe double-tap-${{ github.ref_name }}.exe
-          gh release create ${{ github.ref_name }} double-tap-${{ github.ref_name }}.exe --generate-notes
+          gh release create ${{ github.ref_name }} double-tap-${{ github.ref_name }}.exe double-tap.ahk --generate-notes
