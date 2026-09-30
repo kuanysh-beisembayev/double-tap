@@ -17,6 +17,14 @@ for p in ComObjGet("winmgmts:").ExecQuery("SELECT ProcessId FROM Win32_Process W
 !x:: {
     Send "{Blind}{Alt up}"
     Sleep 20
+    tap()
+    if GetKeyState("Alt", "P")
+        Send "{Blind}{Alt down}"
+}
+
+F6:: tap()
+
+tap() {
     Send "{Blind}{x down}"
     Sleep 30
     Send "{Blind}{x up}"
@@ -24,6 +32,4 @@ for p in ComObjGet("winmgmts:").ExecQuery("SELECT ProcessId FROM Win32_Process W
     Send "{Blind}{n down}"
     Sleep 30
     Send "{Blind}{n up}"
-    if GetKeyState("Alt", "P")
-        Send "{Blind}{Alt down}"
 }

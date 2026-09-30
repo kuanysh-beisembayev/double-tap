@@ -1,6 +1,7 @@
 ; Runs double-tap.exe and checks:
 ; 1. an older copy with a different exe name gets closed,
-; 2. holding Alt and pressing X twice sends X, N, X, N with X and N at least 45 ms apart.
+; 2. holding Alt and pressing X sends X then N at least 45 ms apart,
+; 3. F6 sends X then N.
 #Requires AutoHotkey v2.0
 
 out := A_ScriptDir "\test-result.txt"
@@ -28,10 +29,10 @@ Send "{Alt down}"
 Sleep 50
 Send "{x}"
 Sleep 400
-Send "{x}"
-Sleep 400
 Send "{Alt up}"
 Sleep 200
+Send "{F6}"
+Sleep 400
 ih.Stop()
 ProcessClose "double-tap.exe"
 
