@@ -9,14 +9,22 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
+; Track the physical Alt key ourselves. Our own Alt up/down sends below are
+; ignored by hotkeys, so this stays correct while the script fiddles with Alt.
+altHeld := false
+~*Alt::global altHeld := true
+~*Alt up::global altHeld := false
+
 ; Alt is released first so Dota sees plain X and N, not Alt+X and Alt+N.
-!x:: {
+#HotIf altHeld
+*x:: {
     Send "{Blind}{Alt up}"
-    Sleep 20
+    Sleep 50
     tap()
-    if GetKeyState("Alt", "P")
+    if altHeld
         Send "{Blind}{Alt down}"
 }
+#HotIf
 
 F6:: tap()
 

@@ -1,5 +1,5 @@
 ; Runs double-tap.exe and checks:
-; 1. holding Alt and pressing X sends X then N at least 45 ms apart,
+; 1. holding Alt and pressing X twice sends X then N (45+ ms apart) each time,
 ; 2. F6 sends X then N.
 #Requires AutoHotkey v2.0
 
@@ -24,6 +24,8 @@ Send "{Alt down}"
 Sleep 50
 Send "{x}"
 Sleep 400
+Send "{x}"
+Sleep 400
 Send "{Alt up}"
 Sleep 200
 Send "{F6}"
@@ -38,6 +40,6 @@ for e in events
         sent .= e.key, times.Push(e.t)
 
 gap := times.Length >= 2 ? times[2] - times[1] : 0
-ok := sent = "xnxn" && gap >= 45 && gap <= 120
+ok := sent = "xnxnxn" && gap >= 45 && gap <= 120
 FileAppend (ok ? "PASS" : "FAIL") ": keys sent [" sent "], X-N gap " Round(gap) " ms`n", out
 ExitApp ok ? 0 : 1
