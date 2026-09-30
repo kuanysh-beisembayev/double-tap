@@ -1,6 +1,6 @@
 ; Armlet double toggle. AutoHotkey v2.
 ; X     = Armlet slot normal hotkey in Dota 2, N = quickcast hotkey of the same slot.
-; Alt+X = releases Alt, presses X, then N 10 ms later, toggling twice.
+; Alt+X = releases Alt, presses X, and N together, toggling twice within one server tick.
 ;@Ahk2Exe-SetName double-tap
 ;@Ahk2Exe-SetDescription double-tap
 ;@Ahk2Exe-SetVersion 0.0.0
@@ -28,13 +28,9 @@ altHeld := false
 #HotIf
 
 tap() {
-    Send "{Blind}{x down}"
-    Sleep 5
-    Send "{Blind}{x up}"
-    Sleep 5
-    Send "{Blind}{n down}"
-    Sleep 5
-    Send "{Blind}{n up}"
+    Send "{Blind}{x down}{n down}"
+    wait(5)
+    Send "{Blind}{x up}{n up}"
 }
 
 ; Windows cannot sleep for less than ~16 ms reliably, so spin on the high-resolution counter.
