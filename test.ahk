@@ -1,5 +1,5 @@
 ; Runs double-tap.exe, presses Alt+X, and checks that exactly two X presses
-; come out: X and N together. Writes the result to test-result.txt.
+; come out: a single X. Writes the result to test-result.txt.
 #Requires AutoHotkey v2.0
 
 out := A_ScriptDir "\test-result.txt"
@@ -14,7 +14,7 @@ qpc() {
 
 events := []
 ih := InputHook("V")
-ih.KeyOpt("xn", "N")
+ih.KeyOpt("x", "N")
 ih.OnKeyDown := (ih, vk, sc) => events.Push({t: qpc(), key: GetKeyName(Format("vk{:x}", vk)), alt: GetKeyState("Alt")})
 ih.Start()
 
@@ -30,6 +30,6 @@ for e in events
     if !e.alt
         sent .= e.key
 
-ok := sent = "xn"
+ok := sent = "x"
 FileAppend (ok ? "PASS" : "FAIL") ": keys sent [" sent "]`n", out
 ExitApp ok ? 0 : 1

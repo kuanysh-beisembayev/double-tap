@@ -9,7 +9,7 @@
 #SingleInstance Force
 
 !x:: {
-    Send "{x down}{n down}"
+    Send "{x down}"
     Sleep 30
-    Send "{x up}{n up}"
+    Send "{x up}"
 }
