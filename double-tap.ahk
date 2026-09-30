@@ -1,6 +1,6 @@
 ; Armlet double toggle. AutoHotkey v2.
-; X     = Armlet slot hotkey in Dota 2. Plain X toggles once.
-; Alt+X = toggles twice.
+; X     = Armlet slot normal hotkey in Dota 2, Y = quickcast hotkey of the same slot.
+; Alt+X = presses both at once, toggling twice.
 ;@Ahk2Exe-SetName double-tap
 ;@Ahk2Exe-SetDescription double-tap
 ;@Ahk2Exe-SetVersion 0.0.0
@@ -8,9 +8,8 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-; {x} sends the key by virtual code, so it works with any keyboard layout.
 !x:: {
-    Send "{x}"
-    Sleep 60
-    Send "{x}"
+    Send "{x down}{y down}"
+    Sleep 30
+    Send "{x up}{y up}"
 }
