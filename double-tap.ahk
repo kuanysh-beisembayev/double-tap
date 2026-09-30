@@ -8,9 +8,6 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-; Windows sleeps in ~16 ms steps by default. Ask for 1 ms resolution so short sleeps are real.
-; AutoHotkey's own Sleep still rounds up, so tap() calls the system Sleep directly.
-DllCall("winmm\timeBeginPeriod", "UInt", 1)
 SetKeyDelay -1, -1
 
 ; Track the physical Alt key ourselves. Our own Alt up/down sends below are
@@ -38,4 +35,13 @@ tap() {
     Send "{Blind}{n down}"
     Sleep 5
     Send "{Blind}{n up}"
+}
+
+; Windows cannot sleep for less than ~16 ms reliably, so spin on the high-resolution counter.
+wait(ms) {
+    DllCall("QueryPerformanceFrequency", "Int64*", &f := 0)
+    DllCall("QueryPerformanceCounter", "Int64*", &start := 0)
+    loop
+        DllCall("QueryPerformanceCounter", "Int64*", &now := 0)
+    until (now - start) * 1000 / f >= ms
 }
