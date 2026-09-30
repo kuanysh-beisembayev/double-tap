@@ -1,12 +1,15 @@
 ; Armlet double toggle. AutoHotkey v2.
 ; X     = Armlet slot normal hotkey in Dota 2, N = quickcast hotkey of the same slot.
-; Alt+X = releases Alt, presses X, then N 20 ms later, toggling twice.
+; Alt+X = releases Alt, presses X, then N 10 ms later, toggling twice.
 ;@Ahk2Exe-SetName double-tap
 ;@Ahk2Exe-SetDescription double-tap
 ;@Ahk2Exe-SetVersion 0.0.0
 ;@Ahk2Exe-SetMainIcon armlet.ico
 #Requires AutoHotkey v2.0
 #SingleInstance Force
+
+; Windows sleeps in ~16 ms steps by default. Ask for 1 ms resolution so short Sleeps are real.
+DllCall("winmm\timeBeginPeriod", "UInt", 1)
 
 ; Track the physical Alt key ourselves. Our own Alt up/down sends below are
 ; ignored by hotkeys, so this stays correct while the script fiddles with Alt.
@@ -27,10 +30,10 @@ altHeld := false
 
 tap() {
     Send "{Blind}{x down}"
-    Sleep 10
+    Sleep 5
     Send "{Blind}{x up}"
-    Sleep 10
+    Sleep 5
     Send "{Blind}{n down}"
-    Sleep 10
+    Sleep 5
     Send "{Blind}{n up}"
 }
