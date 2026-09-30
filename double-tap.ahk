@@ -1,7 +1,6 @@
 ; Armlet double toggle. AutoHotkey v2.
 ; X     = Armlet slot normal hotkey in Dota 2, N = quickcast hotkey of the same slot.
 ; Alt+X = releases Alt, presses X, then N 60 ms later, toggling twice.
-; F6    = same without Alt involved (diagnostic).
 ;@Ahk2Exe-SetName double-tap
 ;@Ahk2Exe-SetDescription double-tap
 ;@Ahk2Exe-SetVersion 0.0.0
@@ -25,8 +24,6 @@ altHeld := false
         Send "{Blind}{Alt down}"
 }
 #HotIf
-
-F6:: tap()
 
 tap() {
     Send "{Blind}{x down}"
