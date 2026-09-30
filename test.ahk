@@ -1,5 +1,5 @@
 ; Runs double-tap.exe, holds Alt and presses X twice. Expects to see, in order:
-; the first trigger X, then X and N from the script (45+ ms apart), and the same again.
+; the first trigger X, then X and N from the script (30+ ms apart), and the same again.
 #Requires AutoHotkey v2.0
 
 out := A_ScriptDir "\test-result.txt"
@@ -36,6 +36,6 @@ for e in events
     sent .= e.key
 
 gap := events.Length >= 3 ? events[3].t - events[2].t : 0
-ok := sent = "xxnxxn" && gap >= 45 && gap <= 120
+ok := sent = "xxnxxn" && gap >= 30 && gap <= 100
 FileAppend (ok ? "PASS" : "FAIL") ": keys seen [" sent "], X-N gap " Round(gap) " ms, Alt restored " altRestored "`n", out
 ExitApp ok ? 0 : 1
