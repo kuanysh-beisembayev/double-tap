@@ -12,4 +12,8 @@
     Send "{x down}"
     Sleep 30
     Send "{x up}"
+    Sleep 30
+    Send "{n down}"
+    Sleep 30
+    Send "{n up}"
 }
