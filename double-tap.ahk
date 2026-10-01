@@ -1,6 +1,6 @@
 ; Armlet double toggle. AutoHotkey v2.
 ; X     = Armlet slot normal hotkey in Dota 2, K = quickcast hotkey of the same slot.
-; Alt+X = releases Alt, presses X, and N together, toggling twice within one server tick.
+; Alt+D = releases Alt, presses X and K together, toggling twice within one server tick.
 ;@Ahk2Exe-SetName double-tap
 ;@Ahk2Exe-SetDescription double-tap
 ;@Ahk2Exe-SetVersion 0.0.0
