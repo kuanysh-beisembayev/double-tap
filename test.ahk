@@ -1,5 +1,5 @@
-; Runs double-tap.exe, holds Alt and presses X twice. Expects to see, in order:
-; the first trigger X, then X and N from the script (under 20 ms apart), and the same again.
+; Runs double-tap.exe, holds Alt and presses D twice. Expects to see, in order:
+; the first trigger D, then D and K from the script (under 20 ms apart), and the same again.
 #Requires AutoHotkey v2.0
 
 out := A_ScriptDir "\test-result.txt"
@@ -14,16 +14,16 @@ qpc() {
 
 events := []
 ih := InputHook("V")
-ih.KeyOpt("xn", "N")
+ih.KeyOpt("dk", "N")
 ih.OnKeyDown := (ih, vk, sc) => events.Push({t: qpc(), key: GetKeyName(Format("vk{:x}", vk)), alt: GetKeyState("Alt")})
 ih.Start()
 
 SendLevel 1
 Send "{Alt down}"
 Sleep 50
-Send "{x}"
+Send "{d}"
 Sleep 400
-Send "{x}"
+Send "{d}"
 Sleep 400
 altRestored := GetKeyState("Alt")
 Send "{Alt up}"
@@ -36,6 +36,6 @@ for e in events
     sent .= e.key
 
 gap := events.Length >= 3 ? events[3].t - events[2].t : 0
-ok := sent = "xxnxxn" && gap >= 0 && gap <= 20
-FileAppend (ok ? "PASS" : "FAIL") ": keys seen [" sent "], X-N gap " Round(gap) " ms, Alt restored " altRestored "`n", out
+ok := sent = "ddkddk" && gap >= 0 && gap <= 20
+FileAppend (ok ? "PASS" : "FAIL") ": keys seen [" sent "], D-K gap " Round(gap) " ms, Alt restored " altRestored "`n", out
 ExitApp ok ? 0 : 1
